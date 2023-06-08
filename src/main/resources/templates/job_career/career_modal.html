@@ -1,0 +1,192 @@
+<!-- 経歴モーダル(編集) -->
+<div
+  xmlns:th="http://www.thymeleaf.org"
+  th:fragment="modalFragments(modalLabel,modalId,formId,formMethod,formButton,modalType)"
+  class="modal fade"
+  th:id="${modalId}"
+  tabindex="-1"
+  th:aria-labelledby="${modalLabel}"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <form
+        th:id="${formId}"
+        th:method="${formMethod}"
+        th:object="${careerRequest}"
+      >
+        <div class="modal-header">
+          <h5 class="modal-title" id="${modalLabel}">経歴</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <!-- 期間 -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label">期間</label>
+            </div>
+            <div class="col">
+              <input
+                th:id="${modalType} + '-' + 'fromDate'"
+                type="month"
+                th:field="*{fromDate}"
+              />
+              <span class="mx-2">~</span>
+              <input
+                th:id="${modalType} + '-' + 'toDate'"
+                type="month"
+                th:field="*{toDate}"
+              />
+            </div>
+          </div>
+          <!-- 業務内容(タイトル) -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="businessOutline"
+                >業務内容(タイトル)</label
+              >
+            </div>
+            <div class="col-8">
+              <input
+                th:id="${modalType} + '-' + 'businessOutline'"
+                type="text"
+                class="form-control"
+                th:field="*{businessOutline}"
+              />
+            </div>
+          </div>
+          <!-- 業務内容(本文) -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="businessOutlineDescription"
+                >業務内容(本文)</label
+              >
+            </div>
+            <div class="col-8">
+              <textarea
+                th:id="${modalType} + '-' + 'businessOutlineDescription'"
+                class="form-control"
+                th:field="*{businessOutlineDescription}"
+              ></textarea>
+            </div>
+          </div>
+          <!-- 役割(タイトル) -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="role">役割(タイトル)</label>
+            </div>
+            <div class="col-8">
+              <input
+                th:id="${modalType} + '-' + 'role'"
+                type="text"
+                class="form-control"
+                th:field="*{role}"
+              />
+            </div>
+          </div>
+          <!-- 役割(本文) -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="roleDescription"
+                >役割(本文)</label
+              >
+            </div>
+            <div class="col-8">
+              <textarea
+                th:id="${modalType} + '-' + 'roleDescription'"
+                class="form-control"
+                th:field="*{roleDescription}"
+              ></textarea>
+            </div>
+          </div>
+          <!-- 使用言語 -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="useLanguage">使用言語</label>
+            </div>
+            <div class="col-8">
+              <textarea
+                th:id="${modalType} + '-' + 'useLanguage'"
+                class="form-control"
+                th:field="*{useLanguage}"
+              ></textarea>
+            </div>
+          </div>
+          <!-- DB -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="useDatabase">DB</label>
+            </div>
+            <div class="col-8">
+              <textarea
+                th:id="${modalType} + '-' + 'useDatabase'"
+                class="form-control"
+                th:field="*{useDatabase}"
+              ></textarea>
+            </div>
+          </div>
+          <!-- サーバ -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="useServer">サーバ</label>
+            </div>
+            <div class="col-8">
+              <textarea
+                th:id="${modalType} + '-' + 'useServer'"
+                class="form-control"
+                th:field="*{useServer}"
+              ></textarea>
+            </div>
+          </div>
+          <!-- FW・MWツール等 -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="other">FW・MWツール等</label>
+            </div>
+            <div class="col-8">
+              <textarea
+                th:id="${modalType} + '-' + 'other'"
+                class="form-control"
+                th:field="*{other}"
+              ></textarea>
+            </div>
+          </div>
+          <!-- 担当工程 -->
+          <div class="row pb-3">
+            <div class="col-2">
+              <label class="form-label" name="responsibleProcess"
+                >担当工程</label
+              >
+            </div>
+            <div class="col-8">
+              <textarea
+                th:id="${modalType} + '-' + 'responsibleProcess'"
+                class="form-control"
+                th:field="*{responsibleProcess}"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            キャンセル
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            th:text="${formButton}"
+          ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

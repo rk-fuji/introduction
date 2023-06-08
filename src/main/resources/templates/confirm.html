@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{common/head::head_fragment('確認画面')}"></head>
+
+  <body>
+    <!-- header -->
+    <header th:replace="~{common/header}"></header>
+
+    <!-- container -->
+    <div class="container p-5">
+      <h1 class="text-center">確認画面</h1>
+
+      <!-- form -->
+      <form
+        th:action="@{{formPath}(formPath=${formPath})}"
+        th:method="${formMethod}"
+      >
+        <div class="card">
+          <div th:replace="~{user_card_body}"></div>
+          <div class="card-footer">
+            <div class="row justify-content-center">
+              <div class="col-12 text-center">
+                <input type="submit" value="確定" class="btn btn-primary" />
+                <input
+                  type="button"
+                  value="戻る"
+                  class="btn btn-outline-secondary"
+                  onclick="history.back();"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <footer th:replace="~{common/footer}"></footer>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<div class="card-body" xmlns:th="http://www.thymeleaf.org">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <label class="form-label" for="name">名前：</label>
+      <p class="border show-text p-1" th:text="${user.name}"></p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <label class="form-label" for="age">年齢：</label>
+      <p class="border show-text p-1" name="age" th:text="${user.age}"></p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <label class="form-label" for="gender">性別：</label>
+      <p
+        class="border show-text p-1"
+        name="gender"
+        th:text="${user.gender}"
+      ></p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <label class="form-label" for="fullAddress">住所：</label>
+      <p
+        class="border show-text p-1"
+        name="fullAddress"
+        th:text="${user.fullAddress}"
+      ></p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <label class="form-label" for="hobbies">趣味：</label>
+      <p
+        th:unless="${user.hobbies.isEmpty}"
+        class="border show-text p-1"
+        th:text="${user.hobbies}"
+        name="hobbies"
+      ></p>
+      <p
+        th:if="${user.hobbies.isEmpty}"
+        name="hobbies"
+        class="border show-text p-1"
+      >
+        (未入力)
+      </p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <label class="form-label" for="introduction">自己紹介文：</label>
+      <p
+        class="border show-text p-1 long-text"
+        name="introduction"
+        th:text="${user.introduction}"
+      ></p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <label class="form-label" for="picture">写真：</label>
+      <img
+        class="d-block view-img"
+        th:unless="${user.picture.isEmpty}"
+        th:src="${user.picture}"
+      />
+      <p
+        class="border show-text p-1"
+        th:if="${user.picture.isEmpty}"
+        name="picture"
+      >
+        (未登録)
+      </p>
+    </div>
+  </div>
+</div>

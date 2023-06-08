@@ -1,0 +1,61 @@
+<nav xmlns:th="http://www.thymeleaf.org">
+  <ul class="pagination justify-content-center">
+    <!-- 前ページ -->
+    <li class="page-item" th:classappend="${page.first} ? 'disabled'">
+      <a th:href="@{''(page=${page.number - 1})}" class="page-link">
+        <span>&laquo;</span>
+      </a>
+    </li>
+
+    <!-- 最初のページ -->
+    <li th:if="${page.number gt 2}" class="page-item">
+      <a th:href="@{''(page=0)}" class="page-link">1</a>
+    </li>
+
+    <!-- … -->
+    <li th:if="${page.number gt 3}" class="page-item disabled">
+      <a href="#" class="page-link">…</a>
+    </li>
+
+    <!-- 中間のページ -->
+    <th:block
+      th:each="i : ${ #numbers.sequence(page.number - 2, page.number + 2) }"
+    >
+      <li
+        th:if="${i ge 0 and i lt page.totalPages}"
+        class="page-item"
+        th:classappend="${i eq page.number} ? 'active'"
+      >
+        <a th:href="@{''(page=${i})}" th:text="${i + 1}" class="page-link"></a>
+      </li>
+    </th:block>
+
+    <!-- … -->
+    <li
+      th:if="${page.totalPages gt (page.number + 4)}"
+      class="page-item disabled"
+    >
+      <a href="#" class="page-link">…</a>
+    </li>
+
+    <!-- 最後のページ -->
+    <li th:if="${page.totalPages gt (page.number + 3)}" class="page-item">
+      <a
+        th:href="@{''(page=${page.totalPages - 1})}"
+        th:text="${page.totalPages}"
+        class="page-link"
+      ></a>
+    </li>
+
+    <!-- 次のページ -->
+    <li class="page-item" th:classappend="${page.last} ? 'disabled'">
+      <a
+        th:href="@{''(page=${page.number + 1})}"
+        class="page-link"
+        th:tabindex="${page.last} ? -1"
+      >
+        <span>&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

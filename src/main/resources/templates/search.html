@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{common/head::head_fragment('検索結果画面')}"></head>
+
+  <body>
+    <!-- header -->
+    <header th:replace="~{common/header}"></header>
+
+    <div class="container p-5">
+      <div class="row pb-4">
+        <div class="col-7">
+          <h1>検索結果</h1>
+        </div>
+
+        <!-- search -->
+        <div class="col-5 float-end">
+          <div class="row">
+            <div class="col-12 mb-3">
+              <button
+                id="searchCollapse"
+                class="btn btn-outline-primary w-100"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                検索項目
+              </button>
+            </div>
+            <div class="col-12">
+              <form
+                class="collapse"
+                id="collapseExample"
+                th:action="@{/search}"
+                th:object="${searchRequest}"
+              >
+                <div class="row mb-3">
+                  <div class="col">
+                    <label for="gender" class="form-label">性別</label>
+                    <select name="gender" class="form-select">
+                      <option
+                        th:each="gender : ${genders}"
+                        th:value="${gender.id}"
+                        th:text="${gender.name}"
+                      ></option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <label for="prefecture" class="form-label">都道府県</label>
+                    <select name="prefecture" class="form-select">
+                      <option
+                        th:each="prefecture : ${prefectures}"
+                        th:value="${prefecture.id}"
+                        th:text="${prefecture.name}"
+                      ></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col">
+                    <label for="useLanguage" class="form-label">使用言語</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      th:field="*{useLanguage}"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col">
+                    <label for="other" class="form-label">FW・MWツール等</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      th:field="*{other}"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col text-end">
+                    <button type="submit" class="btn btn-outline-success w-25">
+                      検索
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- table -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">名前</th>
+            <th class="text-center">年齢</th>
+            <th class="text-center">性別</th>
+            <th class="text-center">都道府県</th>
+            <th class="text-center">住所</th>
+            <th class="text-center">趣味</th>
+            <th class="text-center">画像</th>
+            <th class="text-center" colspan="3">自己紹介</th>
+            <th class="text-center" colspan="2">職務経歴書</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-baseline" th:each="user : ${users}">
+            <td class="text-center" th:text="${user.id}"></td>
+            <td th:text="${user.get('name')}"></td>
+            <td class="text-center" th:text="${user.age}"></td>
+            <td class="text-center" th:text="${user.gender}"></td>
+            <td class="text-center" th:text="${user.prefecture}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.hobby}"></td>
+            <td class="text-center">
+              <img class="thumbnail list-thumbnail" th:src="${user.picture}" />
+            </td>
+            <td class="text-center">
+              <a th:href="@{/users/{id}(id=${user.id})}" th:text="表示"></a>
+            </td>
+            <td class="text-center">
+              <a
+                th:href="@{/users/{id}/edit(id=${user.id})}"
+                th:text="編集"
+              ></a>
+            </td>
+            <td class="text-center">
+              <a
+                th:data-id="${user.id}"
+                th:text="削除"
+                href="javascript:void(0);"
+                onclick="deleteIntroduction(this);"
+              ></a>
+            </td>
+            <td class="text-center">
+              <a
+                th:href="@{/users/{id}/job_career/{jobCareerId}(id=${user.id},jobCareerId=${user.jobCareerId})}"
+                th:text="表示"
+                target="_blank"
+              ></a>
+            </td>
+            <td class="text-center">
+              <a
+                th:href="@{/users/{id}/job_career/{jobCareerId}/edit(id=${user.id},jobCareerId=${user.jobCareerId})}"
+                th:text="編集"
+                target="_blank"
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ページネーション -->
+      <div th:if="${users.size() > 0}">
+        <nav th:replace="~{common/pagenation}"></nav>
+      </div>
+    </div>
+    <form id="delete-form" class="d-none" th:method="delete"></form>
+
+    <!-- footer -->
+    <footer th:replace="~{common/footer}"></footer>
+  </body>
+</html>

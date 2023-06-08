@@ -1,0 +1,37 @@
+.container {
+    max-width: 1200px;
+}
+
+.list-thumbnail {
+    width: 96px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.long-text {
+    white-space: pre-wrap;
+}
+
+.view-img {
+    max-width: 256px;
+    max-height: 256px;
+    object-fit: contain;
+}
+
+.show-text {
+    min-height: 2em;
+}
+
+#searchCollapse[aria-expanded="false"]:after {
+    margin-left: .5em;
+    font-size: 1.25em;
+    font-family: fontAwesome;
+    content: '\f0d7';
+}
+
+#searchCollapse[aria-expanded="true"]:after {
+    margin-left: .5em;
+    font-size: 1.25em;
+    font-family: fontAwesome;
+    content: '\f0d8';
+}

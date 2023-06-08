@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{common/head::head_fragment('閲覧画面')}"></head>
+  <script th:inline="javascript">
+    // ! flashMessage を受け取る為、inlineで処理を記述
+    window.onload = function () {
+      let toastList;
+      toastList = [].slice
+        .call(document.querySelectorAll(".toast"))
+        .map(function (toastEl) {
+          return new bootstrap.Toast(toastEl, {
+            delay: 3000,
+          });
+        });
+      let flashMessage = /*[[${flashMessage}]]*/ "flashMessage";
+      if (flashMessage) {
+        toastList[0].show();
+      }
+    };
+  </script>
+  <body>
+    <!-- header -->
+    <header th:replace="~{common/header}"></header>
+
+    <!-- container -->
+    <div class="container p-5">
+      <h1 class="text-center">閲覧画面</h1>
+      <div class="card">
+        <div class="card-header container-fluid">
+          <div class="row justify-content-end">
+            <div class="col-1">
+              <a class="btn btn-primary" th:href="@{{id}/edit(id=${id})}"
+                >編集</a
+              >
+            </div>
+          </div>
+        </div>
+        <div th:replace="~{user_card_body}"></div>
+      </div>
+    </div>
+
+    <!-- toast -->
+    <div th:replace="~{common/toast}"></div>
+
+    <!-- footer -->
+    <footer th:replace="~{common/footer}"></footer>
+  </body>
+</html>

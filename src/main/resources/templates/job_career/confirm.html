@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{common/head::head_fragment('確認画面')}"></head>
+
+  <body>
+    <!-- header -->
+    <header th:replace="~{common/header}"></header>
+
+    <div class="container p-5">
+      <h1 class="text-center">確認画面</h1>
+      <div class="row pb-3">
+        <div class="col">
+          <form
+            th:action="@{/users/{id}/job_career/{jobCareerId}/edit(id=${id},jobCareerId=${jobCareerId})}"
+            th:method="put"
+          >
+            <div class="card">
+              <div th:replace="~{job_career/job_career_card_body}"></div>
+              <!-- ボタン -->
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col text-center">
+                    <input type="submit" value="確定" class="btn btn-primary" />
+                    <input
+                      type="button"
+                      value="戻る"
+                      class="btn btn-danger"
+                      onclick="history.back();"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer th:replace="~{common/footer}"></footer>
+  </body>
+</html>

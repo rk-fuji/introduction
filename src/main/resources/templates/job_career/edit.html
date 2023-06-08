@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{common/head::head_fragment('職務経歴編集画面')}"></head>
+
+  <body>
+    <!-- header -->
+    <header th:replace="~{common/header}"></header>
+
+    <div class="container p-5">
+      <h1 class="text-center">職務経歴編集画面</h1>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="card">
+            <div class="card-header container-fluid">
+              <div class="row justify-content-end">
+                <div class="col-1">
+                  <a
+                    class="btn btn-primary"
+                    th:href="@{/users/{id}/job_career/{jobCareerId}(id=${id},jobCareerId=${jobCareerId})}"
+                    >閲覧</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="" th:method="post" th:object="${jobCareerRequest}">
+                <div class="row pb-3">
+                  <!-- フリガナ -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="nameKana"
+                          >フリガナ</label
+                        >
+                      </div>
+                      <div class="col-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          th:field="*{nameKana}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 所属 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="affiliation"
+                          >所属</label
+                        >
+                      </div>
+                      <div class="col-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          th:field="*{affiliation}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pb-3">
+                  <!-- 氏名 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="name">氏名</label>
+                      </div>
+                      <div class="col-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          th:field="*{name}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 性別 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="gender">性別</label>
+                      </div>
+                      <div class="col-9">
+                        <!-- TODO:自己紹介とまったく同じため共通化する -->
+                        <span th:each="gender : ${genders}">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="gender"
+                            th:id="${'form_gender_' + gender.id}"
+                            th:field="*{gender}"
+                            th:value="${gender.id}"
+                          />
+                          <label
+                            class="form-check-label"
+                            th:text="${gender.name}"
+                            th:for="${'form_gender_' + gender.id}"
+                          ></label>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pb-3">
+                  <!-- 最寄駅 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="nearestStation"
+                          >最寄駅</label
+                        >
+                      </div>
+                      <div class="col-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          th:field="*{nearestStation}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 年齢 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="age">年齢</label>
+                      </div>
+                      <div class="col-9">
+                        <input
+                          type="number"
+                          th:field="*{age}"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pb-3">
+                  <!-- 稼働 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="operation">稼働</label>
+                      </div>
+                      <div class="col-9">
+                        <input type="month" th:field="*{operation}" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 配偶者 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="">配偶者</label>
+                      </div>
+                      <div class="col-9">
+                        <span th:each="spouse : ${spouses}">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="spouse"
+                            th:id="${'form_spouse_' + spouse.key}"
+                            th:field="*{spouse}"
+                            th:value="${spouse.key}"
+                          />
+                          <label
+                            class="form-check-label"
+                            th:text="${spouse.value}"
+                            th:for="${'form_spouse_' + spouse.key}"
+                          ></label>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pb-3">
+                  <!-- 経歴 -->
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-3">
+                        <label class="form-label" name="">経歴</label>
+                      </div>
+                      <div class="col-9 d-flex align-items-center">
+                        <input
+                          type="number"
+                          id="form_career_date_year"
+                          class="form-control me-3"
+                          th:field="*{careerDate}"
+                          style="max-width: 64px"
+                        />
+                        <label
+                          class="form-label me-3"
+                          for="form_career_date_year"
+                          name="careerDate"
+                          >年</label
+                        >
+                        <input
+                          type="number"
+                          id="form_career_date_month"
+                          class="form-control me-3"
+                          th:field="*{careerMonth}"
+                          style="max-width: 64px"
+                        />
+                        <label
+                          class="form-label me-4"
+                          for="form_career_date_month"
+                          name="careerMonth"
+                          >ヵ月</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pb-3">
+                  <!-- 得意分野 -->
+                  <div class="col">
+                    <label class="form-label" name="specialty">得意分野</label>
+                    <textarea
+                      class="form-control"
+                      th:field="*{specialty}"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="row pb-3">
+                  <!-- 得意技術 -->
+                  <div class="col">
+                    <label class="form-label" name="favoriteTechnology"
+                      >得意技術</label
+                    >
+                    <textarea
+                      class="form-control"
+                      th:field="*{favoriteTechnology}"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="row pb-3">
+                  <!-- 得意業務 -->
+                  <div class="col">
+                    <label class="form-label" name="favoriteBusiness"
+                      >得意業務</label
+                    >
+                    <textarea
+                      class="form-control"
+                      th:field="*{favoriteBusiness}"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="row pt-3 pb-3">
+                  <!-- 自己PR -->
+                  <div class="col">
+                    <label class="form-label" name="selfPublicRelations"
+                      >自己PR</label
+                    >
+                    <textarea
+                      class="form-control"
+                      th:field="*{selfPublicRelations}"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- ボタン -->
+                  <div class="col text-center">
+                    <input type="submit" value="更新" class="btn btn-primary" />
+                    <input
+                      type="reset"
+                      value="リセット"
+                      class="btn btn-danger"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 経歴 -->
+      <div class="row mb-4" th:each="career, status : ${careers}">
+        <div class="col">
+          <div
+            th:replace="~{job_career/career_card::careerCardFragments('edit')}"
+          ></div>
+        </div>
+      </div>
+
+      <!-- 経歴追加ボタン -->
+      <div class="row pb-3">
+        <div class="col-3">
+          <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#careerCreateModal"
+            th:data-userid="${id}"
+            th:data-jobcareerid="${jobCareerId}"
+            onclick="openCareerCreateModal(this);"
+          >
+            経歴を追加
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal -->
+    <div
+      th:replace="~{job_career/career_modal::modalFragments('careerCreateModalLabel','careerCreateModal','create-form','post','登録', 'create')}"
+    ></div>
+    <div
+      th:replace="~{job_career/career_modal::modalFragments('careerEditModalLabel','careerEditModal','edit-form','put','更新', 'edit')}"
+    ></div>
+
+    <footer th:replace="~{common/footer}"></footer>
+    <form id="career-delete-form" class="d-none" th:method="delete"></form>
+  </body>
+</html>

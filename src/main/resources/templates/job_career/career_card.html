@@ -1,0 +1,143 @@
+<div
+  class="card"
+  xmlns:th="http://www.thymeleaf.org"
+  th:fragment="careerCardFragments(cardType)"
+>
+  <div class="card-header container-fluid">
+    <div class="row">
+      <div class="col-10">
+        <p class="card-title" th:text="${'経歴' + (status.index + 1)}"></p>
+      </div>
+      <div class="col-2 float-right" th:if="${cardType} == 'edit'">
+        <button
+          class="btn btn-primary"
+          th:data-userid="${id}"
+          th:data-jobcareerid="${jobCareerId}"
+          th:data-careerid="${career.id}"
+          onclick="openCareerEditModal(this);"
+        >
+          編集
+        </button>
+        <button
+          class="btn btn-danger"
+          th:data-userid="${id}"
+          th:data-jobcareerid="${jobCareerId}"
+          th:data-careerid="${career.id}"
+          onclick="deleteCareer(this);"
+        >
+          削除
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <!-- 期間 -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">期間</label>
+      </div>
+      <div class="col-10">
+        <div class="row">
+          <div class="col-12 d-flex align-items-baseline">
+            <p
+              class="me-2 border p-1 show-text"
+              th:text="${career.fromDate}"
+            ></p>
+            <p class="me-2 p-1 show-text">~</p>
+            <p class="me-2 border p-1 show-text" th:text="${career.toDate}"></p>
+            <p th:text="${career.betweenDate}"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 業務内容 -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">業務内容</label>
+      </div>
+      <div class="col-10">
+        <p class="border p-1 show-text" th:text="${career.businessOutline}"></p>
+      </div>
+      <div class="col-2"></div>
+      <div class="col-10">
+        <p
+          class="border p-1 show-text long-text"
+          th:text="${career.businessOutlineDescription}"
+        ></p>
+      </div>
+    </div>
+    <!-- 役割 -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">役割</label>
+      </div>
+      <div class="col-10">
+        <p class="border p-1 show-text long-tex" th:text="${career.role}"></p>
+      </div>
+      <div class="col-2"></div>
+      <div class="col-10">
+        <p
+          class="border p-1 show-text long-text"
+          th:text="${career.roleDescription}"
+        ></p>
+      </div>
+    </div>
+    <!-- 使用言語 -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">使用言語</label>
+      </div>
+      <div class="col-10">
+        <p
+          class="border p-1 show-text long-text"
+          th:text="${career.useLanguage}"
+        ></p>
+      </div>
+    </div>
+    <!-- DB -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">DB</label>
+      </div>
+      <div class="col-10">
+        <p
+          class="border p-1 show-text long-text"
+          th:text="${career.useDatabase}"
+        ></p>
+      </div>
+    </div>
+    <!-- サーバ -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">サーバ</label>
+      </div>
+      <div class="col-10">
+        <p
+          class="border p-1 show-text long-text"
+          th:text="${career.useServer}"
+        ></p>
+      </div>
+    </div>
+    <!-- FW・MWツール等 -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">FW・MWツール等</label>
+      </div>
+      <div class="col-10">
+        <p class="border p-1 show-text long-text" th:text="${career.other}"></p>
+      </div>
+    </div>
+    <!-- 担当工程 -->
+    <div class="row pb-3">
+      <div class="col-2">
+        <label class="form-label" name="">担当工程</label>
+      </div>
+      <div class="col-10">
+        <p
+          class="border p-1 show-text long-text"
+          th:text="${career.responsibleProcess}"
+        ></p>
+      </div>
+    </div>
+  </div>
+</div>
